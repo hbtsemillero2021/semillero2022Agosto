@@ -6,6 +6,15 @@ import java.time.LocalDate;
 import com.hbt.semillero.enums.EstadoEnum;
 import com.hbt.semillero.enums.TematicaEnum;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+//@Getter
+//@Setter
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class ComicDTO {
 
 	private Long id;
@@ -31,6 +40,12 @@ public class ComicDTO {
 	private EstadoEnum estadoEnum;
 	
 	private Long cantidad;
+
+	public ComicDTO(String nombre, EstadoEnum estadoEnum, BigDecimal precio) {
+		this.nombre = nombre;
+		this.estadoEnum = estadoEnum;
+		this.precio = precio;
+	}
 
 	/**
 	 * Metodo encargado de retornar el valor del atributo id
