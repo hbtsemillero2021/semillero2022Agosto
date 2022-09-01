@@ -3,10 +3,6 @@
  */
 package com.hbt.semillero.rest;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -19,6 +15,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -28,8 +25,6 @@ import org.apache.log4j.Logger;
 
 import com.hbt.semillero.dtos.ComicDTO;
 import com.hbt.semillero.entity.Comic;
-import com.hbt.semillero.enums.EstadoEnum;
-import com.hbt.semillero.enums.TematicaEnum;
 
 /**
  * <b>Descripción:<b> Clase que determina
@@ -53,6 +48,7 @@ public class SemilleroJPQLRest {
 	@GET
 	@Path("/test")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	@SuppressWarnings("unchecked")
 	public String generarOperacionComic() {

@@ -41,6 +41,9 @@ public class ComicDTO {
 	
 	private Long cantidad;
 
+	public ComicDTO() {
+	}
+	
 	public ComicDTO(String nombre, EstadoEnum estadoEnum, BigDecimal precio) {
 		this.nombre = nombre;
 		this.estadoEnum = estadoEnum;
