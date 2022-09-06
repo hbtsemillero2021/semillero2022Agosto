@@ -9,12 +9,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BienvenidaComponent } from './semillero/componentes/home/bienvenida-component';
 import { MenuComponent } from './semillero/componentes/menu/menu-component';
+import { CrearPersonaComponent } from './semillero/componentes/crear-persona/crear-persona.component';
+import { TestComponent } from './semillero/componentes/crear-persona/test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     BienvenidaComponent,
+    CrearPersonaComponent,
+    TestComponent
 
   ],
   imports: [

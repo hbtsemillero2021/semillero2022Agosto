@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   private miObjeto : any;
+  
   constructor(private router : Router) {
     
   }  
