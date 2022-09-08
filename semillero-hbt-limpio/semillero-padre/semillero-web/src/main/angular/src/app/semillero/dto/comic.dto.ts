@@ -27,9 +27,7 @@ export class ComicDTO {
 	
 	public cantidad : number;
 
-    constructor(nombre : string, tematicaEnum : TematicaEnum, precio : number) {
-        this.nombre = nombre;
-        this.tematicaEnum = tematicaEnum;
-        this.precio = precio;
+    constructor() {
+        
     }
 }

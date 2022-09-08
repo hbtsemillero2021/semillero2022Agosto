@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ComicDTO } from '../../dto/comic.dto';
 import { EstadoEnum } from './enums/estado.enum';
 import { TematicaEnum } from './enums/tematica.enum';
@@ -10,16 +11,22 @@ import { TematicaEnum } from './enums/tematica.enum';
 })
 export class CrearPersonaComponent implements OnInit {
 
-  public saludo : string;
+  public saludo : any;
+  public saludo2 : any;
   public comics : Array<any>;
   public comicsTematicaHorror : Array<ComicDTO>;
   public comicsTematicaHumoristico : Array<ComicDTO>;
   public imagen : any;
 
-  constructor() { }
+  constructor(public translate: TranslateService) {
+    translate.addLangs(['es', 'en']);
+    translate.setDefaultLang('es');
+    translate.use('es'); 
+   }
 
   ngOnInit() {
     this.saludo = "Hola semillero 2022";
+    this.saludo2 = {mensaje: "DIEGO ALVAREZ"};
     this.comics = this.crearComic();
     let url = "https://alfabetajuega.com/hero/2022/09/Goku-y-Superman-intercambian-sus-trajes-en-esta-version-alternativa-que-te-encantara.jpg?width=768&aspect_ratio=16:9&format=nowebp";
     let heigth : number = 500;

@@ -1,6 +1,7 @@
 <p>crear-persona works!</p>
 
-<h1>{{ saludo }}</h1>
+<h1>{{ 'titulo' | translate : saludo2 }}</h1>
+<h1 translate [translateParams]="{mensaje: saludo2.mensaje}">titulo</h1>
 
 <p>{{ comics | json }}</p>
 
