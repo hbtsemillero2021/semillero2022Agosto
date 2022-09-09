@@ -36,18 +36,18 @@ export class CrearPersonaComponent implements OnInit {
     let comics = new Map<string,Array<ComicDTO>>();
 
     this.comicsTematicaHorror = new Array<ComicDTO>()
-    let comicBatman = new ComicDTO("Batman", TematicaEnum.HORROR, 900);
-    let comicDragonBall = new ComicDTO("Dragon Ball", TematicaEnum.HORROR, 800);
+    //let comicBatman = new ComicDTO("Batman", TematicaEnum.HORROR, 900);
+   // let comicDragonBall = new ComicDTO("Dragon Ball", TematicaEnum.HORROR, 800);
 
     this.comicsTematicaHumoristico = new Array<ComicDTO>()
-    let comicChavo = new ComicDTO("Chavo del 8", TematicaEnum.HUMORISTICO, 1900);
-    let comicChapulin = new ComicDTO("Chapulin colorado", TematicaEnum.HUMORISTICO, 600);
+   // let comicChavo = new ComicDTO("Chavo del 8", TematicaEnum.HUMORISTICO, 1900);
+   // let comicChapulin = new ComicDTO("Chapulin colorado", TematicaEnum.HUMORISTICO, 600);
 
-    this.comicsTematicaHorror.push(comicBatman);
-    this.comicsTematicaHorror.push(comicDragonBall);
+   // this.comicsTematicaHorror.push(comicBatman);
+   // this.comicsTematicaHorror.push(comicDragonBall);
 
-    this.comicsTematicaHumoristico.push(comicChavo);
-    this.comicsTematicaHumoristico.push(comicChapulin);
+  //  this.comicsTematicaHumoristico.push(comicChavo);
+  //  this.comicsTematicaHumoristico.push(comicChapulin);
 
     comics.set(TematicaEnum.HORROR, this.comicsTematicaHorror);
     comics.set(TematicaEnum.HUMORISTICO,  this.comicsTematicaHumoristico);

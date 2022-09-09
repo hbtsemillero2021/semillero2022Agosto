@@ -14,6 +14,7 @@ import { TestComponent } from './semillero/componentes/crear-persona/test.compon
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { GestionarComicComponent } from './semillero/componentes/gestionar-comic/gestionar-comic.component';
+import { ConsultarComicComponent } from './semillero/componentes/gestionar-comic/consultar-comic/consultar-comic.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -27,7 +28,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BienvenidaComponent,
     CrearPersonaComponent,
     TestComponent,
-    GestionarComicComponent
+    GestionarComicComponent,
+    ConsultarComicComponent
 
   ],
   imports: [
