@@ -113,6 +113,11 @@
             <button type="button" class="btn btn-primary" (click)="cerrar()">Cerrar</button>      
         </div>
         <br>
+
+        <div class="alert alert-warning" role="alert" *ngIf="!mostrarMensajeFallido">
+            {{ mensajeEjecucion }}
+        </div>
+
         <div class="row" *ngIf="listaComics.length > 0">
             <div class="col-12">
                 <table class="table">

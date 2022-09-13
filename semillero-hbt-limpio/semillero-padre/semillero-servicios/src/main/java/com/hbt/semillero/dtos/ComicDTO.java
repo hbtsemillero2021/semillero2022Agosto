@@ -15,7 +15,7 @@ import lombok.Setter;
 //@Setter
 //@AllArgsConstructor
 //@NoArgsConstructor
-public class ComicDTO {
+public class ComicDTO extends ResultadoDTO {
 
 	private Long id;
 	

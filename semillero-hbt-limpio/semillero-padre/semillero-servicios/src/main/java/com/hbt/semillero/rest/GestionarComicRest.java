@@ -1,5 +1,7 @@
 package com.hbt.semillero.rest;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -11,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.hbt.semillero.dtos.ComicDTO;
 import com.hbt.semillero.dtos.ConsultaNombrePrecioComicDTO;
+import com.hbt.semillero.dtos.ObjetoListaDTO;
 import com.hbt.semillero.dtos.ResultadoDTO;
 import com.hbt.semillero.poo.interfaces.IGestionarComicLocal;
 
@@ -43,6 +46,22 @@ public class GestionarComicRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ConsultaNombrePrecioComicDTO consultarNombrePrecioComic(@QueryParam("idComic") Long idComic) {
 		return this.gestionarComicLocal.consultarNombrePrecioComic(idComic);
+	}
+	
+	@GET
+	@Path("/obtenerComics")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ComicDTO> obtenerComics() {
+		return this.gestionarComicLocal.obtenerComics();
+	}
+	
+	@GET
+	@Path("/obtenerTematicaEnum")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ObjetoListaDTO> obtenerTematicaEnum() {
+		return this.gestionarComicLocal.obtenerTematicaEnum();
 	}
 	
 	@POST

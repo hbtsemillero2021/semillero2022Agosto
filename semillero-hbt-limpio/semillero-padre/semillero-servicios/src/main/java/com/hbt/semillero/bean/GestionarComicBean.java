@@ -1,5 +1,8 @@
 package com.hbt.semillero.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -15,8 +18,10 @@ import org.apache.log4j.Logger;
 
 import com.hbt.semillero.dtos.ComicDTO;
 import com.hbt.semillero.dtos.ConsultaNombrePrecioComicDTO;
+import com.hbt.semillero.dtos.ObjetoListaDTO;
 import com.hbt.semillero.dtos.ResultadoDTO;
 import com.hbt.semillero.entity.Comic;
+import com.hbt.semillero.enums.TematicaEnum;
 import com.hbt.semillero.poo.interfaces.IGestionarComicLocal;
 
 @Stateless
@@ -116,5 +121,69 @@ public class GestionarComicBean implements IGestionarComicLocal {
 		comic.setEstadoEnum(comicDTO.getEstadoEnum());
 		comic.setCantidad(comicDTO.getCantidad());
 		return comic;
+	}
+	
+	private ComicDTO convertirComicToComicDTO(Comic comic) {
+		ComicDTO dto = new ComicDTO();
+		dto.setId(comic.getId());
+		dto.setNombre(comic.getNombre());
+		dto.setEditorial(comic.getEditorial());
+		dto.setTematicaEnum(comic.getTematicaEnum());
+		dto.setColeccion(comic.getColeccion());
+		dto.setNumeroPaginas(comic.getNumeroPaginas());
+		dto.setPrecio(comic.getPrecio());
+		dto.setAutores(comic.getAutores());
+		dto.setColor(comic.getColor());
+		dto.setFechaVenta(comic.getFechaVenta());
+		dto.setEstadoEnum(comic.getEstadoEnum());
+		dto.setCantidad(comic.getCantidad());
+		return dto;
+	}
+
+
+	@Override
+	public List<ObjetoListaDTO> obtenerTematicaEnum() {
+		List<ObjetoListaDTO> items = new ArrayList<>();
+		for (TematicaEnum item : TematicaEnum.values()) {
+			ObjetoListaDTO dto = ObjetoListaDTO.builder()
+								.label(item.getEtiqueta())
+								.value(item.name()).build();
+			items.add(dto);
+		}
+		return items;
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<ComicDTO> obtenerComics() {
+		List<Comic> comicsDB = new ArrayList<>();
+		List<ComicDTO> comics = new ArrayList<>();
+		String consultaComics = "SELECT c FROM Comic c";
+		try {
+			Query queryConsultaComics = em.createQuery(consultaComics);
+			comicsDB = queryConsultaComics.getResultList();
+			if(comicsDB.isEmpty()) {
+				ComicDTO dto = new ComicDTO();
+				dto.setExitoso(Boolean.FALSE);
+				dto.setMensajeEjecucion("No existen comics");
+				comics.add(dto);
+				return comics;
+			}
+			
+			for (Comic comic : comicsDB) {
+				comics.add(this.convertirComicToComicDTO(comic));
+			}
+			comics.get(0).setExitoso(Boolean.TRUE);
+			comics.get(0).setMensajeEjecucion("Se ha ejecutado exitosamente");
+		} catch (Exception e) {
+			ComicDTO dto = new ComicDTO();
+			dto.setExitoso(Boolean.FALSE);
+			dto.setMensajeEjecucion("Se ha presentado un error tecnico");
+			comics.add(dto);
+			LOGGER.info("Se ha presentado un error tecnico " + e.getMessage());
+		}
+		return comics;
 	}
 }

@@ -1,10 +1,12 @@
 import { BaseRowDef } from '@angular/cdk/table';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ComicDTO } from '../../dto/comic.dto';
 import { MultiLanguage } from '../../multilanguage/multilanguage';
+import { GestionarComicService } from '../../servicios/gestionar-comic.service';
+import { EstadoEnum } from '../crear-persona/enums/estado.enum';
 import { TematicaEnum } from '../crear-persona/enums/tematica.enum';
 
 @Component({
@@ -13,16 +15,20 @@ import { TematicaEnum } from '../crear-persona/enums/tematica.enum';
 })
 export class GestionarComicComponent extends MultiLanguage implements OnInit {
 
-  public gestionarComicForm: FormGroup;
+  public gestionarComicForm: FormGroup;  
   public comicDTO: ComicDTO;
   public comicDTOData: ComicDTO;
   public listaComics: Array<ComicDTO>;
+  public listaComicsTaller: Array<any>;
+  public mostrarMensajeFallido: boolean;
   public mostrarItem: boolean;
   public tituloComplemento: any;
   public mostrarData: boolean;
   public validoFormulario: boolean;
+  public mensajeEjecucion: string;
 
-  constructor(public translate: TranslateService, private formBuilder: FormBuilder, private router : Router) {
+  constructor(public translate: TranslateService, private formBuilder: FormBuilder, private router : Router,
+        private gestionarComicService : GestionarComicService) {
     super(translate);
     this.gestionarComicForm = this.formBuilder.group({
       nombre: [null, Validators.required],
@@ -43,7 +49,22 @@ export class GestionarComicComponent extends MultiLanguage implements OnInit {
     }
     this.listaComics = new Array<ComicDTO>();
     this.comicDTO = new ComicDTO();
+    this.obtenerComics();
 
+    this.gestionarComicService.consultarNombrePrecioComic("29").subscribe(comic => {
+      this.comicDTO = comic;
+    })
+  }
+
+  private obtenerComics() : void {
+    this.gestionarComicService.obtenerComics().subscribe( (comics : any )=> {
+      if(comics[0].exitoso) {
+        this.listaComics = comics;
+      } else {
+        this.mensajeEjecucion = comics[0].mensajeEjecucion;
+        this.mostrarMensajeFallido = comics[0].exitoso;
+      }
+    });
   }
 
   public crearComic(): void {
@@ -54,11 +75,22 @@ export class GestionarComicComponent extends MultiLanguage implements OnInit {
     
     
     this.comicDTO = this.gestionarComicForm.value;
-    this.listaComics.push(this.comicDTO);
-    this.validoFormulario = false;
-    this.comicDTO = new ComicDTO();
-    this.mostrarItem = true;
-    this.limpiarForm();
+    this.comicDTO.cantidad = 3;
+    this.comicDTO.estadoEnum = EstadoEnum.ACTIVO;
+
+    this.gestionarComicService.crearComic(this.comicDTO).subscribe(resultadoDTO => {
+        if(resultadoDTO.exitoso) {
+          this.obtenerComics();
+          this.mostrarItem = true;
+        } else {
+          this.mensajeEjecucion = resultadoDTO.mensajeEjecucion;
+        }
+
+        this.validoFormulario = false;
+        this.limpiarForm();
+    }, error => {
+      console.log(error);
+    });
   }
 
   private limpiarForm() : void {
